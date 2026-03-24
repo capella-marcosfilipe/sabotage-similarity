@@ -1,8 +1,8 @@
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
       args:
         PRELOAD_MODEL: ${PRELOAD_MODEL:-false}
     container_name: api-similaridade

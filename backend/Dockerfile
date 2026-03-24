@@ -15,7 +15,7 @@ WORKDIR /app
 RUN groupadd --system app && useradd --system --gid app --create-home appuser
 
 # Copia o arquivo de dependências primeiro para aproveitar o cache do Docker
-COPY requirements.txt .
+COPY backend/requirements.txt ./requirements.txt
 
 # Instala as dependências
 RUN pip install -r requirements.txt
@@ -26,8 +26,11 @@ RUN if [ "$PRELOAD_MODEL" = "true" ]; then \
 	python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"; \
 	fi
 
-# Copia todo o restante do código para o container (app/, JSON e .pt)
-COPY . .
+# Copia o código do backend
+COPY backend/app ./app
+
+# Copia os dados de busca para a imagem (necessário em ambientes sem volume, como Render)
+COPY data ./data
 
 # Ajusta permissões e executa como usuário não-root
 RUN chown -R appuser:app /app
@@ -37,4 +40,4 @@ USER appuser
 EXPOSE 8000
 
 # Comando para iniciar o servidor
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
