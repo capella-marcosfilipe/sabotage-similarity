@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabotage Similarity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="header-tag">SABOTAGE SIMILARITY // TAIA - AV02 - Marcos & Ely</div>
+    <h1 class="header-title">
+      SUA RIMA<br>
+      <span class="dim">VS</span><br>
+      SABOTAGE
+    </h1>
+    <p class="header-sub">
+      // cole um trecho abaixo<br>
+      // o modelo vai comparar com as letras do mestre do Canão<br>
+      // e te dizer o quanto você é da quebrada
+    </p>
+  </header>
+
+  <hr class="divider" />
+
+  <section class="input-section">
+    <label class="field-label" for="query">// seu trecho</label>
+    <textarea
+      id="query"
+      placeholder="escreve aí sua rima, seu verso, seu flow..."
+      rows="5"
+    ></textarea>
+
+    <div class="controls">
+      <div class="top-k-wrap">
+        <span>top</span>
+        <select id="topk">
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+        </select>
+        <span>trechos</span>
+      </div>
+      <button class="btn-analyze" id="btnAnalyze" onclick="buscar()">
+        ▶ ANALISAR
+      </button>
+    </div>
+  </section>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="loading" id="loading">
+    processando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+  </div>
+
+  <div class="score-geral" id="scoreGeral">
+    <div>
+      <div class="score-geral-label">// SIMILARIDADE GERAL</div>
+      <div class="score-geral-value" id="scoreGeralValue">--</div>
+      <div class="score-geral-desc" id="scoreGeralDesc"></div>
+    </div>
+  </div>
+
+  <div class="results-header" id="resultsHeader">// trechos mais próximos</div>
+  <div class="results" id="results"></div>
+
+  <footer class="footer">
+    <span>// embeddings via sentence-transformers</span>
+    <span>CANÃO, ZL</span>
+  </footer>
+
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
